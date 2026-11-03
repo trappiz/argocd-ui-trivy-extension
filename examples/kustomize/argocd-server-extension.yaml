@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: extension-trivy
+          image: quay.io/argoprojlabs/argocd-extension-installer:v1.1.0
+          env:
+            - name: EXTENSION_URL
+              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.0/extension-trivy.tar
+            - name: EXTENSION_CHECKSUM_URL
+              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.0/extension-trivy_checksums.txt
+          volumeMounts:
+            - name: extensions
+              mountPath: /tmp/extensions/
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+      containers:
+        - name: argocd-server
+          volumeMounts:
+            - name: extensions
+              mountPath: /tmp/extensions/
+      volumes:
+        - name: extensions
+          emptyDir: {}

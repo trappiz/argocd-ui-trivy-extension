@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>argocd-trivy-extension preview</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #dee6eb;
+        font-family:
+          Heebo,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      .theme-dark {
+        background: #10151a;
+        min-height: 100vh;
+        color: #dee6eb;
+      }
+      .harness {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .harness__bar {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .harness__panel,
+      .harness__tab {
+        background: #fff;
+        border-radius: 4px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+      }
+      .theme-dark .harness__panel,
+      .theme-dark .harness__tab,
+      .theme-dark .harness__flyout {
+        background: #1f262e;
+      }
+      .harness__label {
+        color: #6d7f8b;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .harness__flyout {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 760px;
+        max-width: 100%;
+        overflow: auto;
+        background: #fff;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+        padding: 24px;
+        box-sizing: border-box;
+      }
+      .harness__close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        border: 0;
+        background: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: inherit;
+      }
+      .argo-button {
+        border: 1px solid #0dadea;
+        background: transparent;
+        color: #0dadea;
+        border-radius: 3px;
+        padding: 4px 10px;
+        cursor: pointer;
+        font: inherit;
+      }
+      .argo-button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="vendor/react.js"></script>
+    <script src="vendor/react-dom.js"></script>
+    <script src="out/harness.js"></script>
+    <script src="out/extension-trivy.js"></script>
+  </body>
+</html>

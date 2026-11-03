@@ -1,0 +1,6 @@
+dist/
+dev/out/
+dev/vendor/
+coverage/
+package-lock.json
+LICENSE
