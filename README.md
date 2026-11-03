@@ -10,7 +10,7 @@ the workloads they belong to. Open a Deployment, StatefulSet or Pod in Argo CD
 and you get a **Security** tab listing its image vulnerabilities, failed
 configuration checks and exposed secrets.
 
-![Vulnerabilities tab](docs/vulnerabilities.png)
+![Security tab on a Deployment in Argo CD](docs/argocd-vulnerabilities.png)
 
 ## Features
 
@@ -26,7 +26,21 @@ configuration checks and exposed secrets.
 - **No backend.** The extension reads reports through Argo CD's own API, so it
   respects your existing RBAC and works with every cluster Argo CD manages.
 
-![Application summary](docs/flyout.png)
+## Screenshots
+
+**Misconfigurations.** Failed checks from `ConfigAuditReport`, with the
+remediation trivy-operator suggests.
+
+![Misconfigurations view](docs/argocd-misconfigurations.png)
+
+**Application summary.** Critical and high totals in the application status bar.
+
+![Status panel in the application header](docs/argocd-status-panel.png)
+
+**Per-workload breakdown.** Clicking the totals opens a flyout listing every
+scanned container in the application.
+
+![Vulnerabilities per workload](docs/argocd-flyout.png)
 
 ## Requirements
 

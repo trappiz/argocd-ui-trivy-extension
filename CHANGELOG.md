@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- README screenshots now show the extension running in Argo CD 3.5 with real
+  trivy-operator data.
+
 ## [0.1.0] - 2026-11-03
 
 First release.
