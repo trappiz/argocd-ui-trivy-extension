@@ -417,25 +417,35 @@ button.tv-count[aria-pressed="true"] {
 
 /* Status panel and flyout */
 
-.tv-panel__label {
+/*
+ * The panel sits inside Argo CD's own status panel markup, whose styles
+ * would otherwise set our sizes. Values mirror Argo CD's built-in items:
+ * 12px heading, 22.4px value, 14px secondary text ("Synced to main").
+ */
+.tv.tv-panel .tv-panel__label {
   display: flex;
   min-height: 18px;
   margin: 0;
   color: #6d7f8b;
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.5;
   text-transform: uppercase;
 }
 
-.tv-panel__body {
+.tv.tv-panel .tv-panel__body {
   display: flex;
   align-items: center;
   min-height: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .tv-panel__button {
   display: flex;
-  gap: 12px;
+  align-items: baseline;
+  gap: 16px;
   padding: 0;
   border: 0;
   background: none;
@@ -445,16 +455,22 @@ button.tv-count[aria-pressed="true"] {
 }
 
 .tv-panel__count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
   color: var(--tv-muted);
 }
-.tv-panel__count.tv-sev-critical,
-.tv-panel__count.tv-sev-high {
-  color: var(--tv-sev);
-}
+
 .tv-panel__value {
-  font-size: 15px;
+  font-size: 22.4px;
   font-weight: 500;
 }
+
+.tv-panel__count.tv-sev-critical .tv-panel__value,
+.tv-panel__count.tv-sev-high .tv-panel__value {
+  color: var(--tv-sev);
+}
+
 .tv-panel__button:hover .tv-panel__count {
   text-decoration: underline;
 }

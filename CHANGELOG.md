@@ -6,6 +6,20 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-03
+
+### Fixed
+
+- Status panel text was oversized: the severity words picked up Argo CD's
+  value font while the counts stayed small. The panel now matches Argo CD's
+  built-in items, with the count at value size and the severity as secondary
+  text.
+
+### Changed
+
+- README screenshots are re-captured at 2x resolution and show the 0.1.1/0.1.2
+  layout.
+
 ## [0.1.1] - 2026-11-03
 
 ### Fixed
@@ -50,6 +64,7 @@ First release.
   ShellCheck. Actions are pinned to full commit SHAs and run with job-scoped,
   least-privilege permissions.
 
-[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/trappiz/argocd-ui-trivy-extension/releases/tag/v0.1.0

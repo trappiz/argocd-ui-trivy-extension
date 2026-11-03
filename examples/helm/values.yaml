@@ -6,6 +6,6 @@ server:
       - name: extension-trivy
         env:
           - name: EXTENSION_URL
-            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.1/extension-trivy.tar
+            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy.tar
           - name: EXTENSION_CHECKSUM_URL
-            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.1/extension-trivy_checksums.txt
+            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy_checksums.txt
