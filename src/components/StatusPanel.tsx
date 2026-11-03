@@ -52,6 +52,18 @@ const worstFirst = (a: WorkloadRow, b: WorkloadRow) => {
 
 const REFRESH_MS = 5 * 60 * 1000;
 
+/**
+ * Argo CD renders status panel extensions straight into the panel row without
+ * the wrapper or label its built-in items get, so we reproduce that markup to
+ * line up with "App health", "Sync status" and the rest.
+ */
+const PanelItem = ({ children }: { children: React.ReactNode }) => (
+  <div className="application-status-panel__item tv tv-panel">
+    <label className="tv-panel__label">Vulnerabilities</label>
+    <div className="application-status-panel__item-value tv-panel__body">{children}</div>
+  </div>
+);
+
 /** Compact summary in the application header. Fetches its own tree because Argo CD does not pass one here. */
 export const StatusPanel = ({ application, openFlyout }: StatusPanelProps) => {
   const [tick, setTick] = React.useState(0);
@@ -68,11 +80,11 @@ export const StatusPanel = ({ application, openFlyout }: StatusPanelProps) => {
 
   if (!state.data) {
     return (
-      <div className="tv tv-panel">
+      <PanelItem>
         <span className="tv-subtle" title={state.error?.message}>
           {state.error ? "Unavailable" : "Loading…"}
         </span>
-      </div>
+      </PanelItem>
     );
   }
 
@@ -80,7 +92,7 @@ export const StatusPanel = ({ application, openFlyout }: StatusPanelProps) => {
   const headline: Severity[] = ["CRITICAL", "HIGH"];
 
   return (
-    <div className="tv tv-panel">
+    <PanelItem>
       {state.data.length === 0 ? (
         <span className="tv-subtle">No reports</span>
       ) : (
@@ -97,7 +109,7 @@ export const StatusPanel = ({ application, openFlyout }: StatusPanelProps) => {
           ))}
         </button>
       )}
-    </div>
+    </PanelItem>
   );
 };
 

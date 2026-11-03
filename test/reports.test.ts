@@ -11,6 +11,7 @@ import {
   imageRef,
   normalizeSeverity,
   sortVulnerabilities,
+  uniqueKeys,
 } from "../src/reports";
 
 const v = (id: string, severity: string, extra: Partial<Vulnerability> = {}): Vulnerability => ({
@@ -148,5 +149,16 @@ describe("formatAge", () => {
   it("handles missing or invalid input", () => {
     expect(formatAge(undefined, now)).toBe("");
     expect(formatAge("not a date", now)).toBe("");
+  });
+});
+
+describe("uniqueKeys", () => {
+  it("numbers repeated keys and leaves unique ones alone", () => {
+    expect(uniqueKeys(["KSV0125|a", "KSV0011", "KSV0125|a", "KSV0125|a"])).toEqual([
+      "KSV0125|a",
+      "KSV0011",
+      "KSV0125|a#1",
+      "KSV0125|a#2",
+    ]);
   });
 });

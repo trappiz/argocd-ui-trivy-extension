@@ -72,7 +72,6 @@ const Harness = () => {
 
         {panel && (
           <section className="harness__panel">
-            <div className="harness__label">{panel.title}</div>
             <panel.component application={application} openFlyout={() => setFlyoutOpen(true)} />
           </section>
         )}

@@ -174,9 +174,7 @@ export const Vulnerabilities = ({ reports }: { reports: VulnerabilityReport[] })
                   <tr>
                     {header("severity", "Severity", "tv-col-severity")}
                     {header("id", "Vulnerability")}
-                    {header("package", "Package")}
-                    <th>Installed</th>
-                    <th>Fixed in</th>
+                    {header("package", "Package", "tv-col-package")}
                     {header("score", "Score", "tv-num")}
                   </tr>
                 </thead>
@@ -195,14 +193,24 @@ export const Vulnerabilities = ({ reports }: { reports: VulnerabilityReport[] })
                           v.vulnerabilityID
                         )}
                         {v.title && (
-                          <div className="tv-subtle" title={v.title}>
+                          <div className="tv-subtle tv-clamp" title={v.title}>
                             {v.title}
                           </div>
                         )}
                       </td>
-                      <td className="tv-mono">{v.resource}</td>
-                      <td className="tv-mono tv-nowrap">{v.installedVersion}</td>
-                      <td className="tv-mono tv-nowrap">{v.fixedVersion || <span className="tv-subtle">—</span>}</td>
+                      <td className="tv-col-package">
+                        <div className="tv-mono tv-break">{v.resource}</div>
+                        <div className="tv-version">
+                          <span className="tv-mono">{v.installedVersion}</span>
+                          {v.fixedVersion ? (
+                            <span className="tv-mono tv-version__fixed" title="Fixed in">
+                              <i className="fa fa-arrow-right" aria-hidden="true" /> {v.fixedVersion}
+                            </span>
+                          ) : (
+                            <span className="tv-subtle">no fix yet</span>
+                          )}
+                        </div>
+                      </td>
                       <td className="tv-num">{v.score !== undefined ? v.score.toFixed(1) : ""}</td>
                     </tr>
                   ))}

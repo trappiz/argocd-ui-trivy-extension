@@ -6,6 +6,19 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-03
+
+### Fixed
+
+- The vulnerabilities table no longer pushes the installed version, fixed
+  version and score off-screen in Argo CD's resource panel. Installed and fixed
+  versions now share the package column, and long titles wrap to two lines.
+- Misconfigurations that fail for more than one container (for example
+  `AVD-KSV-0125` once per container) no longer produce duplicate React keys.
+- The status panel now shows a "Vulnerabilities" heading and lines up with
+  Argo CD's built-in panels. Argo CD does not draw a title for extension
+  panels, so the extension renders its own.
+
 ### Changed
 
 - README screenshots now show the extension running in Argo CD 3.5 with real
@@ -37,5 +50,6 @@ First release.
   ShellCheck. Actions are pinned to full commit SHAs and run with job-scoped,
   least-privilege permissions.
 
-[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/trappiz/argocd-ui-trivy-extension/releases/tag/v0.1.0

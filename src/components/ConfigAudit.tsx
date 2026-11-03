@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ConfigAuditReport, Severity, countBySeverity, normalizeSeverity, severityRank } from "../reports";
+import { ConfigAuditReport, Severity, countBySeverity, normalizeSeverity, severityRank, uniqueKeys } from "../reports";
 import { Message, SeverityBadge, SeverityFilter, formatAge } from "./common";
 
 export const ConfigAudit = ({ reports }: { reports: ConfigAuditReport[] }) => {
@@ -18,6 +18,7 @@ export const ConfigAudit = ({ reports }: { reports: ConfigAuditReport[] }) => {
   const visible = checks.filter(
     (c) => (showPassed || !c.success) && (severities.size === 0 || severities.has(normalizeSeverity(c.severity))),
   );
+  const keys = uniqueKeys(visible.map((c) => [c.checkID, ...(c.messages ?? [])].join("|")));
   const scanned = reports[0]?.report.updateTimestamp;
 
   const toggleSeverity = (s: Severity) =>
@@ -46,8 +47,8 @@ export const ConfigAudit = ({ reports }: { reports: ConfigAuditReport[] }) => {
         <Message title={failed.length === 0 ? "All checks passed" : "Nothing matches the current filters"} />
       ) : (
         <ul className="tv-checks">
-          {visible.map((check) => (
-            <li key={check.checkID} className={`tv-check${check.success ? " tv-check--passed" : ""}`}>
+          {visible.map((check, i) => (
+            <li key={keys[i]} className={`tv-check${check.success ? " tv-check--passed" : ""}`}>
               <div className="tv-check__head">
                 {check.success ? (
                   <span className="tv-badge tv-badge--passed">Passed</span>

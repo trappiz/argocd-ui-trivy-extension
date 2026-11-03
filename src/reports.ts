@@ -152,6 +152,19 @@ export function dedupeVulnerabilities(list: readonly Vulnerability[]): Vulnerabi
   });
 }
 
+/**
+ * Makes React keys unique by numbering repeats. trivy-operator reports one
+ * check per container, so the same check ID can legitimately appear twice.
+ */
+export function uniqueKeys(keys: readonly string[]): string[] {
+  const seen = new Map<string, number>();
+  return keys.map((key) => {
+    const count = seen.get(key) ?? 0;
+    seen.set(key, count + 1);
+    return count === 0 ? key : `${key}#${String(count)}`;
+  });
+}
+
 export interface VulnerabilityFilter {
   query: string;
   severities: ReadonlySet<Severity>;

@@ -42,9 +42,6 @@
 .tv a:hover {
   text-decoration: underline;
 }
-.tv .tv-nowrap {
-  white-space: nowrap;
-}
 
 .tv-subtle {
   color: var(--tv-muted);
@@ -260,11 +257,37 @@ button.tv-count[aria-pressed="true"] {
   white-space: nowrap;
 }
 
-.tv-table td .tv-subtle {
-  max-width: 520px;
+/* Long titles wrap to two lines instead of widening the table. */
+.tv-clamp {
+  display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.tv-break {
+  overflow-wrap: anywhere;
+}
+
+.tv-col-package {
+  width: 34%;
+}
+
+.tv-version {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  margin-top: 2px;
+  color: var(--tv-muted);
+}
+
+.tv-version__fixed {
+  color: var(--tv-passed);
+  overflow-wrap: anywhere;
+}
+.tv-version__fixed .fa {
+  margin-right: 2px;
+  font-size: 10px;
 }
 
 .tv-sortable {
@@ -394,7 +417,17 @@ button.tv-count[aria-pressed="true"] {
 
 /* Status panel and flyout */
 
-.tv-panel {
+.tv-panel__label {
+  display: flex;
+  min-height: 18px;
+  margin: 0;
+  color: #6d7f8b;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tv-panel__body {
   display: flex;
   align-items: center;
   min-height: 24px;
