@@ -60,7 +60,7 @@ runs as an init container that downloads the release, verifies the checksum
 and puts the file in place.
 
 Pick a version from the [releases page](https://github.com/trappiz/argocd-ui-trivy-extension/releases).
-The examples below use `v0.1.2`.
+The examples below use `v0.1.3`.
 
 ### Helm
 
@@ -74,9 +74,9 @@ server:
       - name: extension-trivy
         env:
           - name: EXTENSION_URL
-            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy.tar
+            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.3/extension-trivy.tar
           - name: EXTENSION_CHECKSUM_URL
-            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy_checksums.txt
+            value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.3/extension-trivy_checksums.txt
 ```
 
 ### Kustomize
@@ -97,9 +97,9 @@ spec:
           image: quay.io/argoprojlabs/argocd-extension-installer:v1.1.0
           env:
             - name: EXTENSION_URL
-              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy.tar
+              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.3/extension-trivy.tar
             - name: EXTENSION_CHECKSUM_URL
-              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.2/extension-trivy_checksums.txt
+              value: https://github.com/trappiz/argocd-ui-trivy-extension/releases/download/v0.1.3/extension-trivy_checksums.txt
           volumeMounts:
             - name: extensions
               mountPath: /tmp/extensions/

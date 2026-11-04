@@ -1,11 +1,11 @@
 import * as React from "react";
 import { getManifests, getResourceTree } from "../api";
+import { toVulnerabilityReport } from "../normalize";
 import { appKey, useAsync } from "../hooks";
 import {
   SEVERITIES,
   Severity,
   SeverityCounts,
-  VulnerabilityReport,
   addCounts,
   containerName,
   countsFromSummary,
@@ -28,7 +28,7 @@ interface WorkloadRow {
 
 async function loadRows(application: Application, tree: ApplicationTree): Promise<WorkloadRow[]> {
   const nodes = currentReportNodes(tree, "VulnerabilityReport");
-  const reports = await getManifests<VulnerabilityReport>(application, nodes);
+  const reports = await getManifests(application, nodes, toVulnerabilityReport);
   return reports.map(({ node, manifest: report }) => {
     const owner = node.parentRefs?.[0];
     return {

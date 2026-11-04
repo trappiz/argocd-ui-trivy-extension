@@ -1,7 +1,9 @@
 import type { Vulnerability } from "./reports";
 
 function escape(value: string | number | undefined): string {
-  const text = value === undefined ? "" : String(value);
+  let text = value === undefined ? "" : String(value);
+  // Report fields are untrusted; stop spreadsheets from evaluating them as formulas.
+  if (typeof value === "string" && /^[=+\-@\t\r]/.test(text)) text = `'${text}`;
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 

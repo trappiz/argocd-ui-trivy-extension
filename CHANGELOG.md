@@ -6,6 +6,27 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-04
+
+### Security
+
+- Advisory links from reports are now limited to `http` and `https`. A
+  `VulnerabilityReport` is an ordinary custom resource, so anyone able to write
+  one could previously set `primaryLink` to a `javascript:` URL that ran in the
+  Argo CD UI with the viewer's session when clicked.
+- All report data is validated before rendering. Malformed or hostile reports
+  (wrong types, missing fields) no longer break the Security tab or status
+  panel.
+- CSV exports prefix cells that start with `=`, `+`, `-`, `@`, tab or carriage
+  return, so spreadsheets do not evaluate report text as formulas.
+- `minimatch` is overridden to 11.0.3 in the development toolchain to resolve
+  GHSA-g3hv-75wg-m249. This only affected linting; the published extension has
+  no runtime dependencies.
+
+### Added
+
+- `SECURITY.md` with how to report vulnerabilities and verify releases.
+
 ## [0.1.2] - 2026-11-03
 
 ### Fixed
@@ -64,7 +85,8 @@ First release.
   ShellCheck. Actions are pinned to full commit SHAs and run with job-scoped,
   least-privilege permissions.
 
-[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/trappiz/argocd-ui-trivy-extension/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/trappiz/argocd-ui-trivy-extension/releases/tag/v0.1.0

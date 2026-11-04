@@ -1,7 +1,8 @@
 import * as React from "react";
 import { getManifests } from "../api";
+import { toConfigAuditReport, toExposedSecretReport, toVulnerabilityReport } from "../normalize";
 import { appKey, useAsync } from "../hooks";
-import { ConfigAuditReport, ExposedSecretReport, VulnerabilityReport, dedupeVulnerabilities } from "../reports";
+import { dedupeVulnerabilities } from "../reports";
 import { findReportNodes } from "../tree";
 import type { ResourceTabProps } from "../types/argocd";
 import { ErrorMessage, Loading, Message } from "./common";
@@ -27,17 +28,18 @@ export const SecurityTab = ({ application, resource, tree }: ResourceTabProps) =
 
   const state = useAsync(
     async () => {
-      const load = async <T,>(kind: string) =>
+      const load = async <T,>(kind: string, parse: (raw: unknown) => T) =>
         (
-          await getManifests<T>(
+          await getManifests(
             application,
             nodes.filter((n) => n.kind === kind),
+            parse,
           )
         ).map((f) => f.manifest);
       const [vulnerabilities, config, secrets] = await Promise.all([
-        load<VulnerabilityReport>("VulnerabilityReport"),
-        load<ConfigAuditReport>("ConfigAuditReport"),
-        load<ExposedSecretReport>("ExposedSecretReport"),
+        load("VulnerabilityReport", toVulnerabilityReport),
+        load("ConfigAuditReport", toConfigAuditReport),
+        load("ExposedSecretReport", toExposedSecretReport),
       ]);
       return {
         vulnerabilities: vulnerabilities.sort(byContainer),

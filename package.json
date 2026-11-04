@@ -1,6 +1,6 @@
 {
   "name": "argocd-trivy-extension",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Argo CD UI extension that shows trivy-operator security reports next to your workloads",
   "license": "Apache-2.0",
   "private": true,
@@ -34,5 +34,8 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
     "vitest": "^5.1.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.3"
   }
 }

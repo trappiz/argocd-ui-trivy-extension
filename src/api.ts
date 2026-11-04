@@ -46,10 +46,11 @@ export function getResourceTree(app: Application): Promise<ApplicationTree> {
 // be shared between the resource tab, the status panel and the flyout.
 const manifestCache = new Map<string, Promise<unknown>>();
 
-export function getManifest<T>(app: Application, node: ResourceNode): Promise<T> {
+/** Returns the parsed manifest as untrusted data; callers must validate it (see normalize.ts). */
+export function getManifest(app: Application, node: ResourceNode): Promise<unknown> {
   const key = `${node.uid}@${node.resourceVersion ?? ""}`;
   const cached = manifestCache.get(key);
-  if (cached) return cached as Promise<T>;
+  if (cached) return cached;
 
   const name = encodeURIComponent(app.metadata.name);
   const request = getJson<{ manifest: string }>(
@@ -62,7 +63,7 @@ export function getManifest<T>(app: Application, node: ResourceNode): Promise<T>
       version: node.version || "v1alpha1",
       kind: node.kind,
     }),
-  ).then((res) => JSON.parse(res.manifest) as T);
+  ).then((res) => JSON.parse(res.manifest) as unknown);
 
   manifestCache.set(key, request);
   request.catch(() => manifestCache.delete(key));
@@ -80,6 +81,7 @@ export interface Fetched<T> {
 export async function getManifests<T>(
   app: Application,
   nodes: readonly ResourceNode[],
+  parse: (raw: unknown) => T,
   limit = 6,
 ): Promise<Fetched<T>[]> {
   const results: Fetched<T>[] = [];
@@ -87,7 +89,7 @@ export async function getManifests<T>(
   const worker = async () => {
     for (let i = next++; i < nodes.length; i = next++) {
       const node = nodes[i];
-      if (node) results[i] = { node, manifest: await getManifest<T>(app, node) };
+      if (node) results[i] = { node, manifest: parse(await getManifest(app, node)) };
     }
   };
   await Promise.all(Array.from({ length: Math.min(limit, nodes.length) }, worker));
